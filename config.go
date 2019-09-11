@@ -7,6 +7,7 @@ import (
 	"snet/proxy"
 	http "snet/proxy/http"
 	ss "snet/proxy/ss"
+	ssr "snet/proxy/ssr"
 	"time"
 )
 
@@ -40,6 +41,14 @@ type Config struct {
 	SSPort                int               `json:"ss-port"`
 	SSCphierMethod        string            `json:"ss-chpier-method"`
 	SSPasswd              string            `json:"ss-passwd"`
+	SSRHost               string            `json:"ssr-host"`
+	SSRPort               int               `json:"ssr-port"`
+	SSRCipherMethod       string            `json:"ssr-cipher-method"`
+	SSRPassword           string            `json:"ssr-password"`
+	SSRProtocol           string            `json:"ssr-protocol"`
+	SSRProtocolParam      string            `json:"ssr-protocol-param"`
+	SSRObfs               string            `json:"ssr-obfs"`
+	SSRObfsParam          string            `json:"ssr-obfs-param"`
 	CNDNS                 string            `json:"cn-dns"`
 	FQDNS                 string            `json:"fq-dns"`
 	EnableDNSCache        bool              `json:"enable-dns-cache"`
@@ -99,6 +108,8 @@ func genConfigByType(c *Config, proxyType string) proxy.Config {
 	switch proxyType {
 	case "ss":
 		return &ss.Config{Host: c.SSHost, Port: c.SSPort, CipherMethod: c.SSCphierMethod, Password: c.SSPasswd, Timeout: time.Second * time.Duration(c.ProxyTimeout)}
+	case "ssr":
+		return &ssr.Config{Host: c.SSRHost, Port: c.SSRPort, CipherMethod: c.SSRCipherMethod, Password: c.SSRPassword, Protocol: c.SSRProtocol, ProtocolParam: c.SSRProtocolParam, Obfs: c.SSRObfs, ObfsParam: c.SSRObfsParam, Timeout: time.Second * time.Duration(c.ProxyTimeout)}
 	case "http":
 		return &http.Config{Host: c.HTTPProxyHost, Port: c.HTTPProxyPort, AuthUser: c.HTTPProxyAuthUser, AuthPassword: c.HTTPProxyAuthPassword, Timeout: time.Second * time.Duration(c.ProxyTimeout)}
 	}
