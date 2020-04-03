@@ -56,7 +56,8 @@ func main() {
 	if c.AsUpstream {
 		switch c.UpstreamType {
 		case "tls":
-			runTLSServer(c)
+			// runTLSServer(c)
+			runKCPServer(c)
 		default:
 			panic("unknow upstream-type:" + c.UpstreamType)
 		}

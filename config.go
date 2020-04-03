@@ -7,6 +7,7 @@ import (
 	"snet/config"
 	"snet/proxy"
 	"snet/proxy/http"
+	"snet/proxy/kcp"
 	"snet/proxy/socks5"
 	"snet/proxy/ss"
 	"snet/proxy/tls"
@@ -32,6 +33,12 @@ func genConfigByType(c *config.Config, proxyType string) (proxy.Config, error) {
 			return nil, err
 		}
 		return &tls.Config{Host: ip, Port: c.TLSPort, Token: c.TLSToken}, nil
+	case "kcp":
+		ip, err := resolvHostIP(c.KCPHost)
+		if err != nil {
+			return nil, err
+		}
+		return &kcp.Config{Host: ip, Port: c.KCPPort, Token: c.KCPToken}, nil
 	case "socks5":
 		ip, err := resolvHostIP(c.SOCKS5Host)
 		if err != nil {

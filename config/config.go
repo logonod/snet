@@ -44,6 +44,9 @@ type Config struct {
 	TLSHost                 string            `json:"tls-host"`
 	TLSPort                 int               `json:"tls-port"`
 	TLSToken                string            `json:"tls-token"`
+	KCPHost                 string            `json:"kcp-host"`
+	KCPPort                 int               `json:"kcp-port"`
+	KCPToken                string            `json:"kcp-token"`
 	SOCKS5Host              string            `json:"socks5-host"`
 	SOCKS5Port              int               `json:"socks5-port"`
 	SOCKS5AuthUser          string            `json:"socks5-auth-user"`
